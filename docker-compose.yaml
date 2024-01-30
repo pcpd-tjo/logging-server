@@ -6,5 +6,5 @@ services:
         dockerfile: Dockerfile
         container_name: loggingserver
         restart: unless-stopped
-    ports:
-        - "3000:3000/tcp"
+        ports:
+            - "3000:3000/tcp"
