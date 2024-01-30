@@ -1,10 +1,10 @@
 version: "3.8"
 services:
-  loggingserver:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: loggingserver
-    restart: unless-stopped
-   ports:
-      - "3000:3000/tcp"
+    loggingserver:
+        build:
+        context: .
+        dockerfile: Dockerfile
+        container_name: loggingserver
+        restart: unless-stopped
+    ports:
+        - "3000:3000/tcp"
