@@ -1,7 +1,6 @@
 version: "3.8"
 services:
     loggingserver:
-        build:
         context: .
         dockerfile: Dockerfile
         container_name: loggingserver
