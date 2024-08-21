@@ -6,7 +6,7 @@ const { TITLE_WEBHOOK_ID, TITLE_WEBHOOK_TOKEN, CRYSTAL_WEBHOOK_ID, CRYSTAL_WEBHO
 const Embed = require("./embed");
 const Colors = require("./Colors.js");
 
-const { getIdFromUsername } = require("noblox.js")
+const { getIdFromUsername, getUsernameFromId } = require("noblox.js")
 
 const titleWebhook = new WebhookClient({ id: TITLE_WEBHOOK_ID, token: TITLE_WEBHOOK_TOKEN });
 
@@ -102,7 +102,6 @@ router.post("/crystal-log", async (req, res) => {
 const arrestWebhook = new WebhookClient({ id: ARREST_WEBHOOK_ID, token: ARREST_WEBHOOK_TOKEN });
 
 router.post("/arrest-log", async (req, res) => {
-    res.status(200).json({ "message": "WIP" })
     /* 
     DATA:
 
@@ -113,17 +112,22 @@ router.post("/arrest-log", async (req, res) => {
     - Laws Broken
     - Witnesses
     - Extra Notes
+
+    {
+            captor = CaptorPlayer.UserId,
+            Duration = Duration,
+            LawsBroken = LawsBrokenInput,
+            Reason = ReasonInput,
+            Witnesses = WitnessesInput,
+            ExtraNotes = ExtraNotesInput
+        }
     */
     let data
     if (req.query.data) {
         data = JSON.parse(req.query.data);
     } else {
-        let actions = [
-            "added",
-            "removed"
-        ]
         data = {
-            "crystal": "Pink",
+            "captor": "0",
             "player": "UntoldGam",
             "target": "Dev_Untold",
             "cg": "true",
@@ -131,6 +135,25 @@ router.post("/arrest-log", async (req, res) => {
             "action": actions[Math.floor(Math.random() * actions.length)]
         }
     }
+
+    let captor = data.captor || "0";
+    let offender = data.offender || "0";
+    let reason = data.reason || "error";
+    let lawsBroken = data.lawsBroken || "error";
+    let duration = data.duration;
+    let witnesses = data.witnesses;
+    let properties = {
+        "Title": "Arrest Log",
+        "Description": `Offender: ${await getUsernameFromId(offender)} (${offender}) \n Captor: ${await getUsernameFromId(captor)} (${captor}) \n Duration: ${duration} \n Reason: ${reason} \n Laws Broken: ${lawsBroken.replace(",", ", ")}\n Witnesses: ${witnesses} \n Notes: ${data.extraNotes} \n <t:${Math.floor(Date.now() / 1000)}:F>`,
+        "Color": Colors["Orange"]
+    }
+    let embed = await Embed(properties)
+
+    arrestWebhook.send({
+        embeds: [embed]
+    }).then(() => {
+        res.status(200).json({ "result": "Log Created and Sent" })
+    }).catch(console.log);
 });
 
 module.exports = router;
