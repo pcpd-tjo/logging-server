@@ -128,11 +128,13 @@ router.post("/arrest-log", async (req, res) => {
     } else {
         data = {
             "captor": "0",
-            "player": "UntoldGam",
-            "target": "Dev_Untold",
-            "cg": "true",
-            "reason": "Testing",
-            "action": actions[Math.floor(Math.random() * actions.length)]
+            "offender": "0",
+            "reason": "0",
+            "lawsBroken": "0",
+            "duration": "0",
+            "witnesses": "0",
+            "extraNotes": "0",
+
         }
     }
 
@@ -142,9 +144,10 @@ router.post("/arrest-log", async (req, res) => {
     let lawsBroken = data.lawsBroken || "error";
     let duration = data.duration;
     let witnesses = data.witnesses;
+    let extraNotes = data.extraNotes || "No Notes";
     let properties = {
         "Title": "Arrest Log",
-        "Description": `Offender: ${await getUsernameFromId(offender)} (${offender}) \n Captor: ${await getUsernameFromId(captor)} (${captor}) \n Duration: ${duration} \n Reason: ${reason} \n Laws Broken: ${lawsBroken.replace(",", ", ")}\n Witnesses: ${witnesses} \n Notes: ${data.extraNotes} \n <t:${Math.floor(Date.now() / 1000)}:F>`,
+        "Description": `Offender: ${await getUsernameFromId(offender)} (${offender}) \n Captor: ${await getUsernameFromId(captor)} (${captor}) \n Duration: ${duration} \n Reason: ${reason} \n Laws Broken: ${lawsBroken.replace(",", ", ")}\n Witnesses: ${witnesses} \n Notes: ${extraNotes} \n <t:${Math.floor(Date.now() / 1000)}:F>`,
         "Color": Colors["Orange"]
     }
     let embed = await Embed(properties)
