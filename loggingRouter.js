@@ -6,7 +6,7 @@ const { TITLE_WEBHOOK_ID, TITLE_WEBHOOK_TOKEN, CRYSTAL_WEBHOOK_ID, CRYSTAL_WEBHO
 const Embed = require("./embed");
 const Colors = require("./Colors.js");
 
-const { getIdFromUsername, getUsernameFromId } = require("noblox.js")
+const { getUsernameFromId } = require("noblox.js");
 
 const titleWebhook = new WebhookClient({ id: TITLE_WEBHOOK_ID, token: TITLE_WEBHOOK_TOKEN });
 
@@ -19,32 +19,21 @@ router.post("/title-log", async (req, res) => {
             "added",
             "removed"
         ]
-        data = { "title": "Test", "player": "UntoldGam", "target": "Dev_Untold", "action": actions[Math.floor(Math.random() * actions.length)] }
+        data = { "title": "Test", "player": "1", "target": "2", "action": actions[Math.floor(Math.random() * actions.length)] }
     }
 
     let title = data.title;
-    let target = data.target;
+    let targetPlayer = data.target;
     let player = data.editingplayer;
     let action = data.action;
-    let color
-    let text
-    if (action === "added") {
-        color = 5763719
-        text = `Title Giver: ${player} \n Title Receiever: ${target}`
-    } else if (action === "removed") {
-        color = 15548997
-        text = `Title Editor: ${player} \n Title Receiever: ${target}`
-    }
 
-    let properties = {
-        "Title": "Title Log",
-        "Description": `Title Editor: ${player} (${await getIdFromUsername(player)}) \n Player Affected: ${target} (${await getIdFromUsername(target)}) \n Title ${action.charAt(0).toUpperCase() + action.slice(1)}: ${title} \n <t:${Math.floor(Date.now() / 1000)}:F>`,
+    let color = action == "added" ? Colors["Green"] : Colors["Red"];
 
-        "Description": `Title giver: ${player} \n Title receiver: ${target} \n Title Name: ${title} \n <t:${Math.floor(Date.now() / 1000)}:F>`,
-        "Color": color
-    }
-
-    let embed = await Embed(properties);
+    let embed = new Embed({
+        title: "Title Log",
+        description: `Title Editor: **[${await getUsernameFromId(player)}](https://roblox.com/users/${player})** \n Player Affected: **[${await getUsernameFromId(targetplayer)}](https://roblox.com/users/${targetplayer})** \n Title ${action.charAt(0).toUpperCase() + action.slice(1)}: ${title} \n\n Sent at: <t:${Math.floor(Date.now() / 1000)}:F>`,
+        colour: color
+    });
 
     titleWebhook.send({
         embeds: [embed]
@@ -65,8 +54,8 @@ router.post("/crystal-log", async (req, res) => {
         ]
         data = {
             "crystal": "Pink",
-            "player": "UntoldGam",
-            "target": "Dev_Untold",
+            "player": "1",
+            "target": "2",
             "cg": "true",
             "reason": "Testing",
             "action": actions[Math.floor(Math.random() * actions.length)]
@@ -85,12 +74,11 @@ router.post("/crystal-log", async (req, res) => {
     let actionStr = action.charAt(0).toUpperCase() + action.slice(1)
     let colourStr = (crystal_colour.charAt(0).toUpperCase() + crystal_colour.slice(1)).replace(/ /g, '')
     let HexColour = Colors[colourStr] || 0xffffff
-    let properties = {
-        "Title": "Crystal Log",
-        "Description": `Crystal Editor: ${player} (${await getIdFromUsername(player)}) \n Player Affected: ${targetplayer} (${await getIdFromUsername(targetplayer)}) \n Crystal ${actionStr}: ${crystal_colour} ${reasonStr !== "" ? `\n Reason: ${reasonStr}` : ""} \n <t:${Math.floor(Date.now() / 1000)}:F>`,
-        "Color": HexColour
-    }
-    let embed = await Embed(properties)
+    let embed = new Embed({
+        title: "Crystal Log",
+        description: `Crystal Editor: **[${await getUsernameFromId(player)}](https://roblox.com/users/${player})** \n Player Affected: **[${await getUsernameFromId(targetplayer)}](https://roblox.com/users/${targetplayer})** \n Crystal ${actionStr}: ${crystal_colour} ${reasonStr !== "" ? `\n Reason: ${reasonStr}` : ""}\n\n Sent at: <t:${Math.floor(Date.now() / 1000)}:F>`,
+        colour: HexColour
+    });
 
     crystalWebhook.send({
         embeds: [embed]
@@ -129,11 +117,11 @@ router.post("/arrest-log", async (req, res) => {
         data = {
             "captor": "1",
             "offender": "1",
-            "reason": "0",
-            "lawsBroken": "0",
-            "duration": "0",
-            "witnesses": "0",
-            "extraNotes": "0",
+            "reason": "no reason",
+            "lawsBroken": "Test,Test,Test,Test",
+            "duration": "15:00",
+            "witnesses": "No Witnesses",
+            "extraNotes": "No Notes",
 
         }
     }
@@ -145,12 +133,11 @@ router.post("/arrest-log", async (req, res) => {
     let duration = data.duration;
     let witnesses = data.witnesses || "No Witnesses";
     let extraNotes = data.extraNotes || "No Notes";
-    let properties = {
-        "Title": "Arrest Log",
-        "Description": `Offender: ${await getUsernameFromId(offender)} (${offender}) \n Captor: ${await getUsernameFromId(captor)} (${captor}) \n Duration: ${duration} \n Reason: ${reason} \n Laws Broken: ${lawsBroken.replace(",", ", ")}\n Witnesses: ${witnesses} \n Notes: ${extraNotes} \n <t:${Math.floor(Date.now() / 1000)}:F>`,
-        "Color": Colors["Orange"]
-    }
-    let embed = await Embed(properties)
+    let embed = new Embed({
+        title: "Arrest Log",
+        description: `Offender: **[${await getUsernameFromId(offender)}](https://roblox.com/users/${offender})** \n Captor: **[${await getUsernameFromId(captor)}](https://roblox.com/users/${captor})** \n Duration: ${duration} \n Reason: ${reason} \n Laws Broken: ${lawsBroken.replace(",", ", ")}\n Witnesses: ${witnesses} \n Notes: ${extraNotes} \n\n Sent at: <t:${Math.floor(Date.now() / 1000)}:F>`,
+        colour: 0xfabd36
+    })
 
     arrestWebhook.send({
         embeds: [embed]

@@ -9,5 +9,7 @@ module.exports = {
     White: 0xffffff,
     Jade: 0x00dc6b,
     LightBlu: 0x3b83bd,
-    Pink: 0xff00d4 
+    Pink: 0xff00d4,
+    // custom 
+    Red: 0xfa243a
 };
