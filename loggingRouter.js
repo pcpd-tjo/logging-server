@@ -31,7 +31,7 @@ router.post("/title-log", async (req, res) => {
 
     let embed = new Embed({
         title: "Title Log",
-        description: `Title Editor: **[${await getUsernameFromId(player)}](https://roblox.com/users/${player})** \n Player Affected: **[${await getUsernameFromId(targetPlayer)}](https://roblox.com/users/${targetPlayer})** \n Title ${action.charAt(0).toUpperCase() + action.slice(1)}: ${title} \n\n Sent at: <t:${Math.floor(Date.now() / 1000)}:F>`,
+        description: `**Title Editor:** **[${await getUsernameFromId(player)}](https://roblox.com/users/${player})** \n **Player Affected:** **[${await getUsernameFromId(targetPlayer)}](https://roblox.com/users/${targetPlayer})** \n **Title ${action.charAt(0).toUpperCase() + action.slice(1)}:** ${title} \n\n **Sent at:** <t:${Math.floor(Date.now() / 1000)}:F>`,
         colour: color
     });
 
@@ -74,7 +74,7 @@ router.post("/crystal-log", async (req, res) => {
     let HexColour = Colors[colourStr] || 0xffffff
     let embed = new Embed({
         title: "Crystal Log",
-        description: `Crystal Editor: **[${await getUsernameFromId(player)}](https://roblox.com/users/${player})** \n Player Affected: **[${await getUsernameFromId(targetplayer)}](https://roblox.com/users/${targetplayer})** \n Crystal ${action.charAt(0).toUpperCase() + action.slice(1)}: ${crystal_colour} ${reasonStr !== "" ? `\n Reason: ${reasonStr}` : ""}\n\n Sent at: <t:${Math.floor(Date.now() / 1000)}:F>`,
+        description: `**Crystal Editor:** **[${await getUsernameFromId(player)}](https://roblox.com/users/${player})** \n **Player Affected:** **[${await getUsernameFromId(targetplayer)}](https://roblox.com/users/${targetplayer})** \n **Crystal ${action.charAt(0).toUpperCase() + action.slice(1)}:** ${crystal_colour} ${reasonStr !== "" ? `\n **Reason:** ${reasonStr}` : ""}\n\n **Sent at:** <t:${Math.floor(Date.now() / 1000)}:F>`,
         colour: HexColour
     });
 
@@ -133,7 +133,7 @@ router.post("/arrest-log", async (req, res) => {
     let extraNotes = data.extraNotes || "No Notes";
     let embed = new Embed({
         title: "Arrest Log",
-        description: `Offender: **[${await getUsernameFromId(offender)}](https://roblox.com/users/${offender})** \n Captor: **[${await getUsernameFromId(captor)}](https://roblox.com/users/${captor})** \n Duration: ${duration} \n Reason: ${reason} \n Laws Broken: ${lawsBroken.replace(",", ", ")}\n Witnesses: ${witnesses} \n Notes: ${extraNotes} \n\n Sent at: <t:${Math.floor(Date.now() / 1000)}:F>`,
+        description: `**Offender:** **[${await getUsernameFromId(offender)}](https://roblox.com/users/${offender})** \n **Captor:** **[${await getUsernameFromId(captor)}](https://roblox.com/users/${captor})** \n **Duration:** ${duration} \n **Reason:** ${reason} \n **Laws Broken:** ${lawsBroken.replace(",", ", ")}\n **Witnesses:** ${witnesses} \n **Notes:** ${extraNotes} \n\n **Sent at:** <t:${Math.floor(Date.now() / 1000)}:F>`,
         colour: 0xfabd36
     })
 
