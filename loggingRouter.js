@@ -72,9 +72,9 @@ router.post("/crystal-log", async (req, res) => {
     let reasonStr = cg === true ? "Crystal Gathering" : "";
     let HexColour = Colors[(crystal_colour.charAt(0).toUpperCase() + crystal_colour.slice(1)).replace(/ /g, '')] || 0xffffff
     let colourString = crystal_colour.includes(" ") ? crystal_colour.split(" ").map(word => {
-        return word.charAt(0).toUpperCase() 
-    }) : crystal_colour.charAt(0).toUpperCase()
-        let embed = new Embed({
+        return word.charAt(0).toUpperCase() + word.slice(1)
+    }) : crystal_colour.charAt(0).toUpperCase() + crystal_colour.slice(1)
+    let embed = new Embed({
         title: "Crystal Log",
         description: `**Crystal Editor:** **[${await getUsernameFromId(player)}](https://roblox.com/users/${player})** \n **Player Affected:** **[${await getUsernameFromId(targetplayer)}](https://roblox.com/users/${targetplayer})** \n **Crystal ${action.charAt(0).toUpperCase() + action.slice(1)}:** ${colourString} ${reasonStr !== "" ? `\n **Reason:** ${reasonStr}` : ""}\n\n **Sent at:** <t:${Math.floor(Date.now() / 1000)}:F>`,
         colour: HexColour
