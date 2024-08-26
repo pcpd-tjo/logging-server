@@ -47,7 +47,9 @@ const crystalWebhook = new WebhookClient({ id: CRYSTAL_WEBHOOK_ID, token: CRYSTA
 
 router.post("/crystal-log", async (req, res) => {
     let data
-    if (!req.body) {
+    if (req.query.data) {
+        data = JSON.parse(req.query.data)
+    } else {
         let actions = [
             "added",
             "removed"
@@ -60,10 +62,7 @@ router.post("/crystal-log", async (req, res) => {
             "reason": "Testing",
             "action": actions[Math.floor(Math.random() * actions.length)]
         }
-    } else {
-        data = req.body;
     }
-
     let targetplayer = data.target; // string 
     let cg = Boolean(data.cg); // true or false
     let player = data.editingplayer;
