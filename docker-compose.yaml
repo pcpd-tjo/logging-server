@@ -8,11 +8,3 @@ services:
     restart: unless-stopped
     ports:
       - "4005:4005/tcp"
-    healthcheck:
-      test:
-        - CMD-SHELL
-        - 'exit 0'
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 5s

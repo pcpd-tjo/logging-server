@@ -127,8 +127,8 @@ router.post("/arrest-log", async (req, res) => {
         data = JSON.parse(req.query.data);
     } else {
         data = {
-            "captor": "0",
-            "offender": "0",
+            "captor": "1",
+            "offender": "1",
             "reason": "0",
             "lawsBroken": "0",
             "duration": "0",
@@ -138,12 +138,12 @@ router.post("/arrest-log", async (req, res) => {
         }
     }
 
-    let captor = data.captor || "0";
-    let offender = data.offender || "0";
+    let captor = data.captor || "1";
+    let offender = data.offender || "1";
     let reason = data.reason || "error";
     let lawsBroken = data.lawsBroken || "error";
     let duration = data.duration;
-    let witnesses = data.witnesses;
+    let witnesses = data.witnesses || "No Witnesses";
     let extraNotes = data.extraNotes || "No Notes";
     let properties = {
         "Title": "Arrest Log",
