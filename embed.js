@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 
-const TJO_LOGO = "https://tr.rbxcdn.com/0bf1e583833b37648d2145075ffec876/150/150/Image/Png";
+const TJO_LOGO = "https://raw.githubusercontent.com/pcpd-tjo/tjo-assets/7a3fafec818168b4b39146d3fc61ca586aebb13c/TJO_LOGO.png";
 
 // module.exports = async (properties) => {
 //     let embed = new EmbedBuilder()
