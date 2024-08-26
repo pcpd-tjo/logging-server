@@ -19,7 +19,7 @@ router.post("/title-log", async (req, res) => {
             "added",
             "removed"
         ]
-        data = { "title": "Test", "player": "1", "target": "2", "action": actions[Math.floor(Math.random() * actions.length)] }
+        data = { "title": "Test", "editingplayer": "1", "target": "2", "action": actions[Math.floor(Math.random() * actions.length)] }
     }
 
     let title = data.title;
@@ -31,7 +31,7 @@ router.post("/title-log", async (req, res) => {
 
     let embed = new Embed({
         title: "Title Log",
-        description: `Title Editor: **[${await getUsernameFromId(player)}](https://roblox.com/users/${player})** \n Player Affected: **[${await getUsernameFromId(targetplayer)}](https://roblox.com/users/${targetplayer})** \n Title ${action.charAt(0).toUpperCase() + action.slice(1)}: ${title} \n\n Sent at: <t:${Math.floor(Date.now() / 1000)}:F>`,
+        description: `Title Editor: **[${await getUsernameFromId(player)}](https://roblox.com/users/${player})** \n Player Affected: **[${await getUsernameFromId(targetPlayer)}](https://roblox.com/users/${targetPlayer})** \n Title ${action.charAt(0).toUpperCase() + action.slice(1)}: ${title} \n\n Sent at: <t:${Math.floor(Date.now() / 1000)}:F>`,
         colour: color
     });
 
