@@ -16,11 +16,11 @@ class Embed {
         title,
         description,
         colour,
-        fields=[] // looks like [ { name: 'Field 1', value: 'Value 1' }, { name: 'Field 2', value: 'Value 2' }, ]
+        fields = [] // looks like [ { name: 'Field 1', value: 'Value 1' }, { name: 'Field 2', value: 'Value 2' }, ]
     }) {
         const _embed = new EmbedBuilder()
-            .setTitle(title)    
-            .setDescription(description)    
+            .setTitle(title)
+            .setDescription(description)
             .setColor(colour)
             .setFooter({ "text": "Made by UntoldGam", "iconURL": TJO_LOGO })
             .setTimestamp();
@@ -28,7 +28,7 @@ class Embed {
             _embed.addFields(...fields);
         }
         this.embed = _embed;
-        return this;
+        return _embed;
     }
 }
 
