@@ -53,7 +53,7 @@ router.post("/crystal-log", async (req, res) => {
             "removed"
         ]
         data = {
-            "crystal": "Pink",
+            "crystal": "pink",
             "player": "1",
             "target": "2",
             "cg": "true",
@@ -64,11 +64,11 @@ router.post("/crystal-log", async (req, res) => {
         data = req.body;
     }
 
-    let crystal_colour = data.crystal; // string
     let targetplayer = data.target; // string 
     let cg = Boolean(data.cg); // true or false
     let player = data.editingplayer;
     let action = data.action; // added or removed : a string
+    let crystal_colour = data.crystal; // string
 
     let reasonStr = cg === true ? "Crystal Gathering" : ""
     let colourStr = (crystal_colour.charAt(0).toUpperCase() + crystal_colour.slice(1)).replace(/ /g, '')
