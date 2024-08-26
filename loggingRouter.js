@@ -69,12 +69,14 @@ router.post("/crystal-log", async (req, res) => {
     let action = data.action; // added or removed : a string
     let crystal_colour = data.crystal; // string
 
-    let reasonStr = cg === true ? "Crystal Gathering" : ""
-    let colourStr = (crystal_colour.charAt(0).toUpperCase() + crystal_colour.slice(1)).replace(/ /g, '')
-    let HexColour = Colors[colourStr] || 0xffffff
-    let embed = new Embed({
+    let reasonStr = cg === true ? "Crystal Gathering" : "";
+    let HexColour = Colors[(crystal_colour.charAt(0).toUpperCase() + crystal_colour.slice(1)).replace(/ /g, '')] || 0xffffff
+    let colourString = crystal_colour.includes(" ") ? crystal_colour.split(" ").map(word => {
+        return word.charAt(0).toUpperCase() 
+    }) : crystal_colour.charAt(0).toUpperCase()
+        let embed = new Embed({
         title: "Crystal Log",
-        description: `**Crystal Editor:** **[${await getUsernameFromId(player)}](https://roblox.com/users/${player})** \n **Player Affected:** **[${await getUsernameFromId(targetplayer)}](https://roblox.com/users/${targetplayer})** \n **Crystal ${action.charAt(0).toUpperCase() + action.slice(1)}:** ${crystal_colour} ${reasonStr !== "" ? `\n **Reason:** ${reasonStr}` : ""}\n\n **Sent at:** <t:${Math.floor(Date.now() / 1000)}:F>`,
+        description: `**Crystal Editor:** **[${await getUsernameFromId(player)}](https://roblox.com/users/${player})** \n **Player Affected:** **[${await getUsernameFromId(targetplayer)}](https://roblox.com/users/${targetplayer})** \n **Crystal ${action.charAt(0).toUpperCase() + action.slice(1)}:** ${colourString} ${reasonStr !== "" ? `\n **Reason:** ${reasonStr}` : ""}\n\n **Sent at:** <t:${Math.floor(Date.now() / 1000)}:F>`,
         colour: HexColour
     });
 
