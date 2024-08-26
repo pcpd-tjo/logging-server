@@ -19,11 +19,11 @@ router.post("/title-log", async (req, res) => {
             "added",
             "removed"
         ]
-        data = { "title": "Test", "editingplayer": "1", "target": "2", "action": actions[Math.floor(Math.random() * actions.length)] }
+        data = { "title": "Test", "editingplayer": "1", "targetplayer": "2", "action": actions[Math.floor(Math.random() * actions.length)] }
     }
 
     let title = data.title;
-    let targetPlayer = data.target;
+    let targetPlayer = data.targetplayer;
     let player = data.editingplayer;
     let action = data.action;
 
@@ -56,14 +56,14 @@ router.post("/crystal-log", async (req, res) => {
         ]
         data = {
             "crystal": "pink",
-            "player": "1",
-            "target": "2",
+            "editingplayer": "1",
+            "targetplayer": "2",
             "cg": "true",
             "reason": "Testing",
             "action": actions[Math.floor(Math.random() * actions.length)]
         }
     }
-    let targetplayer = data.target; // string 
+    let targetplayer = data.targetplayer; // string 
     let cg = Boolean(data.cg); // true or false
     let player = data.editingplayer;
     let action = data.action; // added or removed : a string
