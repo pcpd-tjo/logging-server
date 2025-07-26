@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 
 app.use("/", require("./loggingRouter.js"));
 
-const listener = app.listen(4005, () => {
+const listener = app.listen(2004, () => {
   console.log("Your app is listening on port " + listener.address().port);
   console.log(listener.address())
 });
