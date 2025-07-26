@@ -8,3 +8,9 @@ services:
     restart: unless-stopped
     ports:
       - "2004:2004/tcp"
+    networks:
+      - main-cf-tunnel
+
+networks:
+  main-cf-tunnel:
+    external: true
